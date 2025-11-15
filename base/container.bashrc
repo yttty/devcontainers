@@ -22,7 +22,6 @@ alias df='df -h'
 # alias for git
 gclb() { git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == "[gone]" {sub("refs/heads/", "", $1); print $1}'); do git branch -D $branch; done; }
 gcmu() { git commit -m "chore: update"; }
-gcmm() { git commit -m $1; }
 gce() { git credential-cache exit; }
 gaa() { git add --all; }
 gd() { git diff; }
@@ -38,8 +37,8 @@ gtop() { git log --stat -n 1; }
 gb() { git branch; }
 gba() { git branch --all; }
 gbd() { git branch --delete $1; }
-
 alias g='git'
+alias gg='ggraph'
 alias gbgd='LANG=C git branch --no-color -vv | grep ": gone\]" | cut -c 3- | awk '"'"'{print $1}'"'"' | xargs git branch -d'
 alias gbgD='LANG=C git branch --no-color -vv | grep ": gone\]" | cut -c 3- | awk '"'"'{print $1}'"'"' | xargs git branch -D'
 alias gbm='git branch --move'
@@ -60,3 +59,7 @@ alias gcpc='git cherry-pick --continue'
 alias gclean='git clean --interactive -d'
 alias gcl='git clone --recurse-submodules'
 alias gclf='git clone --recursive --shallow-submodules --filter=blob:none --also-filter-submodules'
+alias gcmm='git commit -m'
+alias gp='git push'
+alias gpu='git pull'
+alias gl='git log'
