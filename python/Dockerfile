@@ -13,6 +13,9 @@ RUN python3 -m venv /home/$USER_NAME/dev.env && \
     /home/$USER_NAME/dev.env/bin/pip install --no-cache-dir --upgrade \
         pip \
         poetry \
+        isort \
+        black \
+        ipykernel \
         && \
     echo ". $HOME/dev.env/bin/activate" >> ~/.bashrc
 
