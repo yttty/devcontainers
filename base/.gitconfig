@@ -3,6 +3,7 @@
 	email = yttty@users.noreply.github.com
 [core]
 	editor = vim
+	pager = diff-so-fancy | less --tabs=4 -RF
 [init]
 	defaultBranch = main
 [push]
@@ -29,6 +30,8 @@
 	autocorrect = 1
 [status]
 	showuntrackedfiles = all
+[interactive]
+	diffFilter = diff-so-fancy --patch
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process

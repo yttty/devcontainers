@@ -1,6 +1,16 @@
 export LANG=C.UTF-8
 export LC_ALL=C.UTF-8
+export PATH=$HOME/.local/bin:$HOME/.local/share/diff-so-fancy:$PATH
 
+################# alias for system utilities #################
+alias l='ls -lAh'
+alias cls='clear'
+alias cp='cp -i'
+alias mv='mv -i'
+alias du='du -h'
+alias df='df -h'
+
+################# Git bash config #################
 # Git completion and prompt
 source ~/.local/share/git-core/contrib/completion/git-completion.bash
 source ~/.local/share/git-core/contrib/completion/git-prompt.sh
@@ -9,15 +19,7 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWSTASHSTATE=1
 # export GIT_PS1_SHOWUPSTREAM="auto"
-export PS1='\[\033[01;34m\]#\[\033[00m\] \[\033[36m\]\u\[\033[00m\] @ \[\033[32m\]\h\[\033[00m\] in \[\033[34m\]\w\[\033[00m\]$(__git_ps1 " \[\033[33m\](%s)\[\033[00m\]")\n\[\033[31m\]\$\[\033[00m\] '
-
-# alias for system utilities
-alias l='ls -lAh'
-alias cls='clear'
-alias cp='cp -i'
-alias mv='mv -i'
-alias du='du -h'
-alias df='df -h'
+export PS1='\n\[\033[01;34m\]#\[\033[00m\] \[\033[36m\]\u\[\033[00m\] @ \[\033[32m\]\h\[\033[00m\] in \[\033[34m\]\w\[\033[00m\]$(__git_ps1 " \[\033[33m\](%s)\[\033[00m\]")\n\[\033[31m\]\$\[\033[00m\] '
 
 # alias for git
 gclb() { git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == "[gone]" {sub("refs/heads/", "", $1); print $1}'); do git branch -D $branch; done; }
