@@ -70,6 +70,7 @@ RUN mkdir -p ~/.local/share/git-core/contrib/completion && \
     curl -fsSL "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/refs/heads/next/lib/DiffHighlight.pm" \
          -o ~/.local/share/diff-so-fancy/lib/DiffHighlight.pm && \
     chmod +x ~/.local/share/diff-so-fancy/diff-so-fancy && \
+    echo "" >> ~/.bashrc && \
     cat ~/container.bashrc >> ~/.bashrc && \
     rm ~/container.bashrc && \
     git lfs install
