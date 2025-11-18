@@ -57,15 +57,21 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 USER $USER_NAME
 WORKDIR /home/$USER_NAME
 
-COPY .gitconfig .gitconfig
-COPY container.bashrc .container.bashrc
+COPY container.bashrc .gitconfig /home/$USER_NAME/
 ARG GIT_COMPLETION_VERSION=v2.51.2
 RUN mkdir -p ~/.local/share/git-core/contrib/completion && \
     curl -fsSL "https://raw.githubusercontent.com/git/git/${GIT_COMPLETION_VERSION}/contrib/completion/git-completion.bash" \
          -o ~/.local/share/git-core/contrib/completion/git-completion.bash && \
     curl -fsSL "https://raw.githubusercontent.com/git/git/${GIT_COMPLETION_VERSION}/contrib/completion/git-prompt.sh" \
          -o ~/.local/share/git-core/contrib/completion/git-prompt.sh && \
-    echo "source ~/.container.bashrc" >> ~/.bashrc && \
+    mkdir -p ~/.local/share/diff-so-fancy/lib && \
+    curl -fsSL "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/refs/heads/next/diff-so-fancy" \
+         -o ~/.local/share/diff-so-fancy/diff-so-fancy && \
+    curl -fsSL "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/refs/heads/next/lib/DiffHighlight.pm" \
+         -o ~/.local/share/diff-so-fancy/lib/DiffHighlight.pm && \
+    chmod +x ~/.local/share/diff-so-fancy/diff-so-fancy && \
+    cat ~/container.bashrc >> ~/.bashrc && \
+    rm ~/container.bashrc && \
     git lfs install
 
 ENV TERM=xterm-256color
