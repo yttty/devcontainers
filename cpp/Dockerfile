@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 USER root
 
 # Install packages
-RUN apt-get update -y && \
+RUN apt-get update && \
     apt-get install -y \
         # GCC 14
         gcc-14 g++-14  \
@@ -25,18 +25,22 @@ RUN apt-get update -y && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-20 100 && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-20 100 && \
-    update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-20 100 && \
-    # Install Conan in venv
-    python3 -m venv /opt/conan-venv && \
-    /opt/conan-venv/bin/pip install --no-cache-dir --upgrade pip conan && \
-    ln -s /opt/conan-venv/bin/conan /usr/local/bin/conan
+    update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-20 100
 
 ARG USER_NAME=coder
 USER $USER_NAME
 WORKDIR /home/$USER_NAME
 
-# Initialize conan
-RUN conan profile detect --force && \
+RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    bash ~/miniconda.sh -b -p $HOME/.miniconda && \
+    rm ~/miniconda.sh && \
+    eval "$($HOME/.miniconda/bin/conda shell.bash hook)" && \
+    conda init bash && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
+    pip install --no-cache-dir --upgrade pip conan && \
+    # Initialize conan
+    conan profile detect --force && \
     mkdir -p ~/.conan2/profiles && \
     # Generate conan profile for gcc14
     conan profile detect --name gcc14 --force && \

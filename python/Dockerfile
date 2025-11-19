@@ -1,23 +1,24 @@
-FROM yttty/devcontainer-base:latest
+FROM yttty/devcontainer-cpp:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
-
-USER root
 
 ARG USER_NAME=coder
 USER $USER_NAME
 WORKDIR /home/$USER_NAME
 
-# Initialize venv
-RUN python3 -m venv /home/$USER_NAME/dev.env && \
-    /home/$USER_NAME/dev.env/bin/pip install --no-cache-dir --upgrade \
+ARG PY_ENV=dev.env
+ARG PY_VERSION=3.13
+RUN eval "$($HOME/.miniconda/bin/conda shell.bash hook)" && \
+    conda create -n ${PY_ENV} python=${PY_VERSION} -y && \
+    conda activate ${PY_ENV} && \
+    pip install --no-cache-dir --upgrade \
         pip \
         poetry \
         isort \
         black \
         ipykernel \
         && \
-    echo ". $HOME/dev.env/bin/activate" >> ~/.bashrc
+    echo "conda activate $PY_ENV" >> ~/.bashrc
 
 WORKDIR /codespace
 
