@@ -31,8 +31,6 @@ gdc() { git diff --cached; }
 ggraph() { git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative; }
 gfind() { git log --grep $1; } # Grep in commit message
 ghist() { git log -p -M --follow --stat $1; } # History of a file
-glp() { git log -p $1; }
-gll() { git log --stat; }
 gsha() { git rev-parse HEAD; }
 gst() { git status; }
 gtop() { git log --stat -n 1; }
@@ -40,6 +38,8 @@ gb() { git branch; }
 gba() { git branch --all; }
 gbd() { git branch --delete $1; }
 alias g='git'
+alias gl='git pull'
+alias gp='git push'
 alias gg='ggraph'
 alias gbgd='LANG=C git branch --no-color -vv | grep ": gone\]" | cut -c 3- | awk '"'"'{print $1}'"'"' | xargs git branch -d'
 alias gbgD='LANG=C git branch --no-color -vv | grep ": gone\]" | cut -c 3- | awk '"'"'{print $1}'"'"' | xargs git branch -D'
@@ -62,6 +62,6 @@ alias gclean='git clean --interactive -d'
 alias gcl='git clone --recurse-submodules'
 alias gclf='git clone --recursive --shallow-submodules --filter=blob:none --also-filter-submodules'
 alias gcmm='git commit -m'
-alias gp='git push'
-alias gpu='git pull'
-alias gl='git log'
+alias glg='git log'
+alias glp='git log -p'
+alias gll='git log --stat'
