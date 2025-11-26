@@ -38,7 +38,7 @@ RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.s
     conda init bash && \
     conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
     conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
-    pip install --no-cache-dir --upgrade pip conan && \
+    pip install --no-cache-dir --upgrade pip conan glances && \
     # Initialize conan
     conan profile detect --force && \
     mkdir -p ~/.conan2/profiles && \

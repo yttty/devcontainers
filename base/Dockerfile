@@ -37,6 +37,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
         git-lfs \
         vim \
         nano \
+        tree \
+        htop \
         procps \
         libssl-dev \
         libicu-dev \
