@@ -33,6 +33,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
         curl \
         wget \
         iproute2 \
+        net-tools \
+        dnsutils \
         git \
         git-lfs \
         vim \
